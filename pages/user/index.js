@@ -1,8 +1,6 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 
-import Register from '../components/auth/register'
-import Login from '../components/auth/login'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -10,8 +8,7 @@ export default function Home() {
   return (
     <>
       <main>
-        <Register/>
-        <Login/>
+        <h1 className='text-6xl'>hello how can you come to this page? :/</h1>
       </main>
     </>
   )
