@@ -1,13 +1,18 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+
+import {Button} from "@nextui-org/react";
+
 
 function Register() {
     const [formData, setFormData] = useState({
         username: '',
         password: '',
-        avatar: 'https://cataas.com/cat'
+        Avatar: 'https://cataas.com/cat'
     });
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
+    const router = useRouter(); // Get the router object
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -47,36 +52,80 @@ function Register() {
         }else{
             return setError("All fields are required!");
         }
+    };
+
+    const publicAcc = async () => {
+        try {
+            let response = await fetch('http://localhost:8080/login', {
+                method: 'POST',
+                body: JSON.stringify({
+                    username: 'test_user',
+                    password: '1234'
+                }),
+                headers: {
+                    Accept: "application/json, text/plain, */*",
+                    'Content-Type': 'application/json',
+                },
+                })
+                // Check if the response is ok (status code 200-299)
+                if (!response.ok) {
+                    let errorResponse = await response.json();
+                    setError(errorResponse.error);
+                    setMessage(""); // Clear any success message
+                    return;
+                }
+
+
+                setFormData({
+                    username : "",
+                    password : "",
+                })
+                setMessage("Register successfully!");
+                // If response is ok, extract user_id from response and navigate to the user page
+                const responseData = await response.json();
+                const userId = responseData.user_id;
+                router.push(`/user/${userId}`); // Navigate to the user page
+        } catch (error) {
+            setError(error.toString()); // Convert error object to string
+        }
 
     };
 
     return (
         <div>
-        <h2 className='bg-gray-400'>Register</h2>
+        <h2 className='text-center text-white text-lg'>Sing up</h2>
         <form onSubmit={handleSubmit}>
-            {error ? <div className='alert-error text-red-600'>{error}</div> : null}
-            {message ? <div className='alert-message text-green-600'>{message}</div> : null}
             <div>
-            <label>Username:</label>
             <input
-                className='border-2 rounded-md'
+                className='mt-4 w-full h-[44px] border-2 rounded-md px-4'
                 type="text"
                 name="username"
+                placeholder='Username'
                 value={formData.username}
                 onChange={handleChange}
             />
             </div>
             <div>
-            <label>Password:</label>
             <input
-                className='border-2 rounded-md'
+                className='mt-2 w-full h-[44px] border-2 rounded-md px-4'
                 type="password"
                 name="password"
+                placeholder='Password'
                 value={formData.password}
                 onChange={handleChange}
             />
             </div>
-            <button className='border-2 bg-gray-200' type="submit">Register</button>
+            {error ? <div className='mt-2 alert-error text-red-500'>{error}</div> : null}
+            {message ? <div className='mt-2 alert-message text-green-500'>{message}</div> : null}
+            <div className=''>
+                <Button color="primary" type="submit" className='mt-2 w-full h-[48px]'>
+                    Sign up
+                </Button>
+                <p className='text-center text-white'>or</p>
+                <Button color="success" onPress={publicAcc} className='mt-2 w-full h-[48px] text-white'>
+                    Continue as Public Account
+                </Button>
+            </div>
         </form>
         </div>
     );

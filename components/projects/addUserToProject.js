@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
-import Image from 'next/image';
 
 
-function AddTask({ userId, projectId }) {
+
+function AddUserToProject({ userId, projectId }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     const [formData, setFormData] = useState({
-        task_name: '',
-        description: ''
+        inviteId: ''
     });
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
@@ -18,15 +17,15 @@ function AddTask({ userId, projectId }) {
         setFormData({ ...formData, [name]: value });
     };
 
-    // console.log(userId, projectId);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (formData.task_name) {
+        console.log(userId, projectId, formData.inviteId);
+        if (formData.inviteId) {
             try {
-                let response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}/task`, {
+                let response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}/user/${formData.inviteId}`, {
                     method: 'POST',
-                    body: JSON.stringify(formData),
+                    body: JSON.stringify({
+                    }),
                     headers: {
                         Accept: "application/json, text/plain, */*",
                         'Content-Type': 'application/json',
@@ -37,66 +36,46 @@ function AddTask({ userId, projectId }) {
                     let errorResponse = await response.json();
                     setError(errorResponse.error);
                     setMessage(""); // Clear any success message
+                    console.log(errorResponse.error);
                     return;
                 }
 
 
                 setFormData({
-                    project_name: ""
+                    inviteId: ""
                 })
+                setMessage("add new user to project successfully!");
                 // Reload the page
                 window.location.reload();
-                setMessage("Create Task Successfully!");
             } catch (error) {
                 setError(error.toString()); // Convert error object to string
             }
         } else {
-            return setError("Name are required!");
+            return setError("All fields are required!");
         }
 
     };
 
     return (
         <>
-            {/* <Button color='primary' onPress={onOpen}>Add Task</Button> */}
-            <div className='flex'>
-                <a className='cursor-pointer' onClick={onOpen}>
-                    <div className=''>
-                        <Image
-                            src="/icons/Add.svg"
-                            width={60}
-                            height={60}
-                            alt="Picture of the author"
-                        />
-                    </div>
-                </a>
-            </div>
+            {error ? <div className='alert-error text-red-600'>{error}</div> : null}
+            {message ? <div className='alert-message text-green-600'>{message}</div> : null}
+            <Button color='primary' onPress={onOpen}>Add User to Project</Button>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
                     {(onClose) => (
                         <>
                             <form onSubmit={handleSubmit}>
-                                <ModalHeader className="text-second-black flex flex-col gap-1">Create Task</ModalHeader>
+                                <ModalHeader className="flex flex-col gap-1">Add User to Project</ModalHeader>
                                 <ModalBody>
                                     <div>
                                         <div>
-                                            <label className='text-second-black mr-2'>Task name:</label>
+                                            <label>User ID:</label>
                                             <input
                                                 className='text-gray-500 px-2 border-2 rounded-md'
                                                 type="text"
-                                                name="task_name"
-                                                value={formData.task_name}
-                                                onChange={handleChange}
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className='text-second-black mr-2'>description:</label>
-                                            <textarea
-                                                rows="4" cols="39"
-                                                className='text-gray-500 px-2 border-2 rounded-md'
-                                                type="text"
-                                                name="description"
-                                                value={formData.description}
+                                                name="inviteId"
+                                                value={formData.inviteId}
                                                 onChange={handleChange}
                                             />
                                         </div>
@@ -109,7 +88,8 @@ function AddTask({ userId, projectId }) {
                                         Close
                                     </Button>
                                     <Button color="primary" type="submit" onPress={onClose}>
-                                        Add task
+                                        Add User
+                                        {/* <button className='w-full h-full' type="submit" onClick={onClose}>Add project</button> */}
                                     </Button>
                                 </ModalFooter>
                             </form>
@@ -121,4 +101,4 @@ function AddTask({ userId, projectId }) {
     );
 }
 
-export default AddTask;
+export default AddUserToProject;

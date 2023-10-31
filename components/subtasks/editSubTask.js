@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
-import Image from 'next/image';
 
-
-function AddTask({ userId, projectId }) {
+function EditSubTask({ userId, projectId, taskId, subTask }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
+    // console.log("task", task);
     const [formData, setFormData] = useState({
-        task_name: '',
-        description: ''
+        updateTaskName: subTask.task_name,
+        updateStatus: subTask.status,
+        updateDescription: subTask.description,
     });
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
@@ -18,20 +17,25 @@ function AddTask({ userId, projectId }) {
         setFormData({ ...formData, [name]: value });
     };
 
-    // console.log(userId, projectId);
-
-    const handleSubmit = async (e) => {
+    const handleSave = async (e) => {
         e.preventDefault();
-        if (formData.task_name) {
+        if (formData.updateTaskName) {
             try {
-                let response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}/task`, {
-                    method: 'POST',
-                    body: JSON.stringify(formData),
+                const response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}/task/${taskId}/${subTask.ID}`, {
+                    method: 'PUT',
                     headers: {
-                        Accept: "application/json, text/plain, */*",
+                        Accept: "application/json', text/plain, */*",
                         'Content-Type': 'application/json',
                     },
-                })
+                    body: JSON.stringify({
+                        task_name: formData.updateTaskName,
+                        status: formData.updateStatus,
+                        description: formData.updateDescription
+                        // Include any other fields you want to edit
+                    }),
+                });
+                const data = await response.json();
+
                 // Check if the response is ok (status code 200-299)
                 if (!response.ok) {
                     let errorResponse = await response.json();
@@ -39,53 +43,42 @@ function AddTask({ userId, projectId }) {
                     setMessage(""); // Clear any success message
                     return;
                 }
-
-
-                setFormData({
-                    project_name: ""
-                })
-                // Reload the page
-                window.location.reload();
-                setMessage("Create Task Successfully!");
             } catch (error) {
-                setError(error.toString()); // Convert error object to string
+                console.error('Error:', error);
             }
+            setFormData({
+                updateTaskName: subTask.task_name,
+                updateStatus: subTask.status,
+                updateDescription: subTask.description,
+            })
+            setMessage("Update Task Successfully!");
+            // Reload the page
+            window.location.reload();
         } else {
             return setError("Name are required!");
         }
-
     };
 
     return (
         <>
-            {/* <Button color='primary' onPress={onOpen}>Add Task</Button> */}
-            <div className='flex'>
-                <a className='cursor-pointer' onClick={onOpen}>
-                    <div className=''>
-                        <Image
-                            src="/icons/Add.svg"
-                            width={60}
-                            height={60}
-                            alt="Picture of the author"
-                        />
-                    </div>
-                </a>
-            </div>
+            {error ? <div className='alert-error text-red-600'>{error}</div> : null}
+            {message ? <div className='alert-message text-green-600'>{message}</div> : null}
+            <Button onPress={onOpen}>Edit Task</Button>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <form onSubmit={handleSubmit}>
-                                <ModalHeader className="text-second-black flex flex-col gap-1">Create Task</ModalHeader>
+                            <form onSubmit={handleSave}>
+                                <ModalHeader className="text-second-black mr-2 flex flex-col gap-1">Edit Subtask</ModalHeader>
                                 <ModalBody>
                                     <div>
                                         <div>
                                             <label className='text-second-black mr-2'>Task name:</label>
                                             <input
-                                                className='text-gray-500 px-2 border-2 rounded-md'
+                                                className='px-2 text-gray-500 border-2 rounded-md'
                                                 type="text"
-                                                name="task_name"
-                                                value={formData.task_name}
+                                                name="updateTaskName"
+                                                value={formData.updateTaskName}
                                                 onChange={handleChange}
                                             />
                                         </div>
@@ -93,15 +86,14 @@ function AddTask({ userId, projectId }) {
                                             <label className='text-second-black mr-2'>description:</label>
                                             <textarea
                                                 rows="4" cols="39"
-                                                className='text-gray-500 px-2 border-2 rounded-md'
+                                                className='px-2 text-gray-500 border-2 rounded-md'
                                                 type="text"
-                                                name="description"
-                                                value={formData.description}
+                                                name="updateDescription"
+                                                value={formData.updateDescription}
                                                 onChange={handleChange}
                                             />
                                         </div>
                                         {/* <button className='border-2 bg-gray-200' type="submit">Add project</button> */}
-
                                     </div>
                                 </ModalBody>
                                 <ModalFooter>
@@ -109,7 +101,8 @@ function AddTask({ userId, projectId }) {
                                         Close
                                     </Button>
                                     <Button color="primary" type="submit" onPress={onClose}>
-                                        Add task
+                                        Confirm
+                                        {/* <button className='w-full h-full' type="submit" onClick={onClose}>Add project</button> */}
                                     </Button>
                                 </ModalFooter>
                             </form>
@@ -121,4 +114,4 @@ function AddTask({ userId, projectId }) {
     );
 }
 
-export default AddTask;
+export default EditSubTask;

@@ -3,12 +3,17 @@
 import { useRouter } from 'next/router';
 import TaskDetails from '/components/tasks/taskDetails';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { Accordion, AccordionItem } from "@nextui-org/react";
+
 
 import EditProject from './editProject'
 import DeleteProject from './deleteProject';
+import DeleteUserFromProject from './deleteUserFromProject';
+import AddUserToProject from './addUserToProject';
 import AddTask from '../tasks/addTask'
 
-function ProjectDetails () {
+function ProjectDetails() {
     const [projectData, setProjectData] = useState(null);
     const [userId, setUserId] = useState(null)
     const [projectId, setProjectId] = useState(null)
@@ -32,39 +37,35 @@ function ProjectDetails () {
         return <div>Loading...</div>;
     }
 
-    // if (!user_id || !project_id) {
-    //     return (
-    //         <div>
-    //             <h2>Project Details</h2>
-    //             <p>
-    //                 User ID: {user_id}, Project ID: {project_id}
-    //             </p>
-    //             <p>Don't have task yet? Create one!</p>
-    //             <p>user in group:</p>
-    //             {projectData && projectData.Users && projectData.Users.map((user, index) => (
-    //                 <span key={index}> {user.username} </span>
-    //             ))}
-    //             <AddTask user_id={user_id} project_id={project_id}/>
-    //         </div>
-    //     );
-    // }
     return (
         <div>
-            <h2>Project Details</h2>
-            <p>
-                User ID: {userId}, Project ID: {projectId}
-            </p>
-            <p>Project name: {projectData.project_name}</p>
-            <p>user in group:</p>
-            {projectData.Users.map((user, index) => (
-                <span key={index}> {user.username} </span>
-            ))}
-            <div className='ml-4'>
-                <EditProject userId={userId} projectId={projectId}/>
-                <DeleteProject user_id={userId} project_id={projectId}/>
+            <Link href={`/user/${userId}`}>
+                <p className='text-xl text-center my-4'>{projectData.project_name}</p>
+            </Link>
+            <div className='px-2 py-1 border-1 border-gray-600 bg-gray-800 overflow-hidden rounded-md'>
+                <p className=''>Project Name: {projectData.project_name}</p>
+                <p className=''>
+                    Project ID: {projectId}
+                </p>
             </div>
-            <TaskDetails project_name={projectData.project_name} projectId={projectId} userId={userId} />
-            <AddTask userId={userId} projectId={projectId}/>
+
+            <div className='flex justify-center mt-4'>
+                <div className=''>
+                    <DeleteProject userId={userId} projectId={projectId} project={projectData} />
+                </div>
+            </div>
+            <p className='rounded-md overflow-hidden pl-4 pt-1 mb-2 mt-4 text-lg font-bold h-[35px] bg-sky-400'>Tasks:</p>
+
+            <div className='px-2'>
+                <TaskDetails projectId={projectId} userId={userId} />
+            </div>
+            <div className='w-full h-[20px] mt-14 mb-14'></div>
+            <div className='sticky z-10'>
+                <div className='fixed bottom-4 right-4 '>
+                    <AddTask userId={userId} projectId={projectId} />
+                    <p className='text-center text-sm font-light pt-1 drop-shadow-md'>Add Task</p>
+                </div>
+            </div>
         </div>
     );
 }

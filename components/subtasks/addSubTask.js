@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
-import Image from 'next/image';
 
 
-function AddTask({ userId, projectId }) {
+
+function AddSubTask({ userId, projectId, taskId }) {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     const [formData, setFormData] = useState({
@@ -18,13 +18,13 @@ function AddTask({ userId, projectId }) {
         setFormData({ ...formData, [name]: value });
     };
 
-    // console.log(userId, projectId);
+    // console.log(userId, projectId, taskId);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.task_name) {
             try {
-                let response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}/task`, {
+                let response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}/task/${taskId}/subtask`, {
                     method: 'POST',
                     body: JSON.stringify(formData),
                     headers: {
@@ -46,7 +46,7 @@ function AddTask({ userId, projectId }) {
                 })
                 // Reload the page
                 window.location.reload();
-                setMessage("Create Task Successfully!");
+                setMessage("Create SubTask Successfully!");
             } catch (error) {
                 setError(error.toString()); // Convert error object to string
             }
@@ -58,29 +58,19 @@ function AddTask({ userId, projectId }) {
 
     return (
         <>
-            {/* <Button color='primary' onPress={onOpen}>Add Task</Button> */}
-            <div className='flex'>
-                <a className='cursor-pointer' onClick={onOpen}>
-                    <div className=''>
-                        <Image
-                            src="/icons/Add.svg"
-                            width={60}
-                            height={60}
-                            alt="Picture of the author"
-                        />
-                    </div>
-                </a>
-            </div>
+            <Button color='success' variant='bordered' onPress={onOpen} className='w-full'>Add Subtask</Button>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
                     {(onClose) => (
                         <>
                             <form onSubmit={handleSubmit}>
-                                <ModalHeader className="text-second-black flex flex-col gap-1">Create Task</ModalHeader>
+                                <ModalHeader className=" text-second-black flex flex-col gap-1">Create Subtask</ModalHeader>
                                 <ModalBody>
                                     <div>
+                                        {/* {error ? <div className='alert-error text-red-600'>{error}</div> : null}
+                                        {message ? <div className='alert-message text-green-600'>{message}</div> : null} */}
                                         <div>
-                                            <label className='text-second-black mr-2'>Task name:</label>
+                                            <label className='text-second-black mr-2'>Subtask name:</label>
                                             <input
                                                 className='text-gray-500 px-2 border-2 rounded-md'
                                                 type="text"
@@ -90,7 +80,7 @@ function AddTask({ userId, projectId }) {
                                             />
                                         </div>
                                         <div>
-                                            <label className='text-second-black mr-2'>description:</label>
+                                            <label className='text-second-black mr-2'>Subtask description:</label>
                                             <textarea
                                                 rows="4" cols="39"
                                                 className='text-gray-500 px-2 border-2 rounded-md'
@@ -109,7 +99,7 @@ function AddTask({ userId, projectId }) {
                                         Close
                                     </Button>
                                     <Button color="primary" type="submit" onPress={onClose}>
-                                        Add task
+                                        Add Sub task
                                     </Button>
                                 </ModalFooter>
                             </form>
@@ -121,4 +111,4 @@ function AddTask({ userId, projectId }) {
     );
 }
 
-export default AddTask;
+export default AddSubTask;

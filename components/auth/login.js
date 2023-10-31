@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
+import {Button} from "@nextui-org/react";
+
 function Login() {
     const [formData, setFormData] = useState({
         username: '',
@@ -46,34 +48,76 @@ function Login() {
             setError("All fields are required!");
         }
     };
+    const publicAcc = async () => {
+        try {
+            let response = await fetch('http://localhost:8080/login', {
+                method: 'POST',
+                body: JSON.stringify({
+                    username: 'test_user',
+                    password: '1234'
+                }),
+                headers: {
+                    Accept: "application/json, text/plain, */*",
+                    'Content-Type': 'application/json',
+                },
+                })
+                // Check if the response is ok (status code 200-299)
+                if (!response.ok) {
+                    let errorResponse = await response.json();
+                    setError(errorResponse.error);
+                    return;
+                }
+
+
+                setFormData({
+                    username : "",
+                    password : "",
+                })
+                // If response is ok, extract user_id from response and navigate to the user page
+                const responseData = await response.json();
+                const userId = responseData.user_id;
+                router.push(`/user/${userId}`); // Navigate to the user page
+        } catch (error) {
+            setError(error.toString()); // Convert error object to string
+        }
+
+    };
 
     return (
         <div>
-            <h2 className='bg-gray-400'>Login</h2>
+            <h2 className='text-center text-white text-lg'>Login</h2>
             <form onSubmit={handleSubmit}>
-                {error ? <div className='alert-error text-red-600'>{error}</div> : null}
-                <div>
-                    <label>Username:</label>
-                    <input
-                        className='border-2 rounded-md'
-                        type="text"
-                        name="username"
-                        value={formData.username}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        className='border-2 rounded-md'
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
-                </div>
-                <button className='border-2 bg-gray-200' type="submit">Login</button>
-            </form>
+            <div>
+            <input
+                className='mt-4 w-full h-[44px] border-2 rounded-md px-4'
+                type="text"
+                name="username"
+                placeholder='Username'
+                value={formData.username}
+                onChange={handleChange}
+            />
+            </div>
+            <div>
+            <input
+                className='mt-2 w-full h-[44px] border-2 rounded-md px-4'
+                type="password"
+                name="password"
+                placeholder='Password'
+                value={formData.password}
+                onChange={handleChange}
+            />
+            </div>
+            {error ? <div className='mt-2 alert-error text-red-500'>{error}</div> : null}
+            <div className=''>
+                <Button color="primary" type="submit" className='mt-2 w-full h-[48px]'>
+                    Login
+                </Button>
+                <p className='text-center text-white'>or</p>
+                <Button color="success" onPress={publicAcc} className='mt-2 w-full h-[48px] text-white'>
+                    Continue as Public Account
+                </Button>
+            </div>
+        </form>
         </div>
     );
 }

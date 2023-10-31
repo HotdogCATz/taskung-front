@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import SubtaskDetails from '/components/subtasks/subtaskDetails';
+import AddSubTask from '../subtasks/addSubTask';
+import DeleteTask from './deleteTask';
+import SetStatus from './setStatus';
+import EditTask from './editTask';
+import Task from './task';
 
 function TaskDetails({ projectId, userId }) {
     const [tasks, setTasks] = useState([]);
@@ -21,19 +26,37 @@ function TaskDetails({ projectId, userId }) {
     }, [projectId, userId]);
 
     return (
-        <div className={tasks.length != 0 ? '':'hidden'}>
-            <h2 className='bg-sky-400 ml-2'>Tasks:</h2>
-            <ul>
-                {tasks.map((task, index) => (
-                    <li key={index}>
-                        <h3 className='bg-sky-200 ml-4'>task name: {task.task_name}, task id: {task.ID}</h3>
-                        <h3 className='bg-sky-100 ml-4'>status: {task.status}</h3>
-                        <div className='ml-6'>
-                            <SubtaskDetails userId={userId} projectId={projectId} taskId={task.ID}/>
-                        </div>
-                    </li>
-                ))}
-            </ul>
+        <div className={tasks.length != 0 ? '' : 'hidden'}>
+            <p className='rounded-md overflow-hidden pl-4 pt-1 h-[35px] bg-gray-600 text-white'>IN-QUEUE</p>
+            {tasks.sort((a, b) => a.ID - b.ID).map((task, index) => (
+                <div key={index}>
+                    {task.status === 'in-queue' ?
+                        <Task userId={userId} projectId={projectId} taskId={task.ID} task={task} />
+                        :
+                        <div></div>
+                    }
+                </div>
+            ))}
+            <p className='rounded-md overflow-hidden pl-4 pt-1 h-[35px] bg-amber-600 text-white'>IN-PROGRESS</p>
+            {tasks.sort((a, b) => a.ID - b.ID).map((task, index) => (
+                <div key={index}>
+                    {task.status === 'in-progress' ?
+                        <Task userId={userId} projectId={projectId} taskId={task.ID} task={task} />
+                        :
+                        <div></div>
+                    }
+                </div>
+            ))}
+            <p className='rounded-md overflow-hidden pl-4 pt-1 h-[35px] bg-green-600 text-white'>COMPLETE</p>
+            {tasks.sort((a, b) => a.ID - b.ID).map((task, index) => (
+                <div key={index}>
+                    {task.status === 'complete' ?
+                        <Task userId={userId} projectId={projectId} taskId={task.ID} task={task} />
+                        :
+                        <div></div>
+                    }
+                </div>
+            ))}
         </div>
     );
 }
