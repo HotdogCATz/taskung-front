@@ -13,6 +13,8 @@ import DeleteUserFromProject from './deleteUserFromProject';
 import AddUserToProject from './addUserToProject';
 import AddTask from '../tasks/addTask'
 
+import Navbar from '../navbar';
+
 function ProjectDetails() {
     const [projectData, setProjectData] = useState(null);
     const [userId, setUserId] = useState(null)
@@ -39,6 +41,7 @@ function ProjectDetails() {
 
     return (
         <div>
+            <Navbar />
             <Link href={`/user/${userId}`}>
                 <p className='text-xl text-center my-4'>{projectData.project_name}</p>
             </Link>

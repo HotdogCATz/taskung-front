@@ -69,13 +69,13 @@ function EditTask({ userId, projectId, task }) {
                     {(onClose) => (
                         <>
                             <form onSubmit={handleSave}>
-                                <ModalHeader className="flex flex-col gap-1">Edit Task</ModalHeader>
+                                <ModalHeader className="text-second-black flex flex-col gap-1">Edit Task</ModalHeader>
                                 <ModalBody>
                                     <div>
                                         <div>
-                                            <label>Task name:</label>
+                                            <label className='text-second-black mr-2'>Task name:</label>
                                             <input
-                                                className='border-2 rounded-md'
+                                                className='px-2 text-gray-500 border-2 rounded-md'
                                                 type="text"
                                                 name="updateTaskName"
                                                 value={formData.updateTaskName}
@@ -86,7 +86,7 @@ function EditTask({ userId, projectId, task }) {
                                             <label>Task description:</label>
                                             <textarea
                                                 rows="4" cols="50"
-                                                className='border-2 rounded-md'
+                                                className='px-2 text-gray-500 border-2 rounded-md'
                                                 type="text"
                                                 name="updateDescription"
                                                 value={formData.updateDescription}

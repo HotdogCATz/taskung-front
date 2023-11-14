@@ -63,11 +63,11 @@ function EditProject({ userId, projectId, project }) {
                     {(onClose) => (
                         <>
                             <form onSubmit={handleSave}>
-                                <ModalHeader className="flex flex-col gap-1">Edit Project</ModalHeader>
+                                <ModalHeader className="text-second-black flex flex-col gap-1">Edit Project</ModalHeader>
                                 <ModalBody>
                                     <div>
                                         <div>
-                                            <label>Project name:</label>
+                                            <label className='text-second-black mr-2'>Project name:</label>
                                             <input
                                                 className='text-gray-500 px-2 border-2 rounded-md'
                                                 type="text"

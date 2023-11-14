@@ -13,8 +13,8 @@ import Status from '../status';
 function Task({ userId, projectId, task }) {
 
     return (
-        <div className='mt-2 mb-6 bg-second-black rounded-md overflow-hidden'>
-            <Accordion selectionMode="multiple" defaultExpandedKeys={["1"]} className=''>
+        <div className='mt-1 mb-1 bg-second-black rounded-md overflow-hidden'>
+            <Accordion selectionMode="multiple" className=''>
                 <AccordionItem
                     key="1"
                     aria-label="Accordion 1"

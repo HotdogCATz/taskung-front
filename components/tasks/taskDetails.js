@@ -27,7 +27,7 @@ function TaskDetails({ projectId, userId }) {
 
     return (
         <div className={tasks.length != 0 ? '' : 'hidden'}>
-            <p className='rounded-md overflow-hidden pl-4 pt-1 h-[35px] bg-gray-600 text-white'>IN-QUEUE</p>
+            <p className='mt-2 rounded-md overflow-hidden pl-4 pt-1 h-[35px] bg-gray-600 text-white'>IN-QUEUE</p>
             {tasks.sort((a, b) => a.ID - b.ID).map((task, index) => (
                 <div key={index}>
                     {task.status === 'in-queue' ?
@@ -37,7 +37,7 @@ function TaskDetails({ projectId, userId }) {
                     }
                 </div>
             ))}
-            <p className='rounded-md overflow-hidden pl-4 pt-1 h-[35px] bg-amber-600 text-white'>IN-PROGRESS</p>
+            <p className='mt-6 rounded-md overflow-hidden pl-4 pt-1 h-[35px] bg-amber-600 text-white'>IN-PROGRESS</p>
             {tasks.sort((a, b) => a.ID - b.ID).map((task, index) => (
                 <div key={index}>
                     {task.status === 'in-progress' ?
@@ -47,7 +47,7 @@ function TaskDetails({ projectId, userId }) {
                     }
                 </div>
             ))}
-            <p className='rounded-md overflow-hidden pl-4 pt-1 h-[35px] bg-green-600 text-white'>COMPLETE</p>
+            <p className='mt-6 rounded-md overflow-hidden pl-4 pt-1 h-[35px] bg-green-600 text-white'>COMPLETE</p>
             {tasks.sort((a, b) => a.ID - b.ID).map((task, index) => (
                 <div key={index}>
                     {task.status === 'complete' ?
