@@ -1,6 +1,6 @@
 // pages/[user_id]/project/[project_id].js
 
-import ProjectDetails from '/components/projects/ProjectDetails';
+import ProjectDetails from '/components/projects/projectDetails';
 import Head from 'next/head';
 
 function Projects() {

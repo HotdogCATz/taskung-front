@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import TaskDetails from '/components/tasks/taskDetails';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Accordion, AccordionItem } from "@nextui-org/react";
 
 
 // import EditProject from './editProject'
