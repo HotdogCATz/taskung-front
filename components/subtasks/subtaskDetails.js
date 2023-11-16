@@ -60,7 +60,7 @@ function SubtaskDetails({ userId, projectId, taskId }) {
                                         </div>
                                         <p className='px-4 py-4'>
                                             <span className='text-gray-400 text-sm'>Task Description: </span>
-                                            <p className='text-gray-200'>{subtask.description}</p>
+                                            <p className='text-gray-200 text-[12px]'>{subtask.description}</p>
                                         </p>
                                         <div className='flex py-2 mt-2 border-t-[0.5px] rounded-md border-gray-500 px-4 justify-between'>
                                             <div className='text-gray-400 text-sm'>

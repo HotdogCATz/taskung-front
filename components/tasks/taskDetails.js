@@ -10,7 +10,7 @@ import Task from './task';
 
 function TaskDetails({ projectId, userId }) {
     const [tasks, setTasks] = useState([]);
-
+    // console.log("task detail:", user);
     useEffect(() => {
         const fetchTasks = async () => {
             try {
@@ -36,6 +36,7 @@ function TaskDetails({ projectId, userId }) {
                         <div></div>
                     }
                 </div>
+
             ))}
             <p className='mt-6 rounded-md overflow-hidden pl-4 pt-1 h-[35px] bg-amber-600 text-white'>IN-PROGRESS</p>
             {tasks.sort((a, b) => a.ID - b.ID).map((task, index) => (

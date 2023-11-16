@@ -9,6 +9,7 @@ import DeleteTask from './deleteTask';
 import SetStatus from './setStatus';
 import EditTask from './editTask';
 import Status from '../status';
+import SetUser from './setUser';
 
 function Task({ userId, projectId, task }) {
 
@@ -50,7 +51,7 @@ function Task({ userId, projectId, task }) {
                                     </div>
                                     <p className='px-4 py-4'>
                                         <span className='text-gray-400 text-sm'>Task Description: </span>
-                                        <p className='text-gray-200'>{task.description}</p>
+                                        <p className='text-gray-200 text-[12px]'>{task.description}</p>
                                     </p>
 
                                     <div className='flex py-2 mt-2 border-t-[0.5px] rounded-md border-gray-500 px-4 justify-between'>
@@ -71,6 +72,9 @@ function Task({ userId, projectId, task }) {
                                 </div>
                             </AccordionItem>
                         </Accordion>
+                    </div>
+                    <div className='w-full mt-2'>
+                        <SetUser userId={userId} projectId={projectId} task={task} />
                     </div>
                     <div className='mt-2 bg-gray-700 rounded-md overflow-hidden'>
                         <Accordion selectionMode="multiple" defaultExpandedKeys={["1"]} className=''>

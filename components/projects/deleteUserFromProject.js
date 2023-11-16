@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import {Button} from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 
 
 function DeleteUserFromProject({ deleteUserId, projectId }) {
@@ -22,18 +22,18 @@ function DeleteUserFromProject({ deleteUserId, projectId }) {
             setMessage("User deleted successfully!");
             // Reload the page
             window.
-            window.location.reload();
+                window.location.reload();
         } catch (error) {
             console.error('Error:', error);
         }
-        
+
     };
 
     return (
         <div>
             {/* <button className='border-2' onClick={handleDelete}>Delete Project</button> */}
             <Button onPress={handleDelete} color="danger">
-                Delete User
+                Kick User
             </Button>
 
             {error ? <div className='alert-error'>{error}</div> : null}

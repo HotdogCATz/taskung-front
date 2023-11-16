@@ -4,7 +4,7 @@ import React from "react";
 
 import Register from '../components/auth/register'
 import Login from '../components/auth/login'
-import {Tabs, Tab, Input, Link, Button, Card, CardBody, CardHeader} from "@nextui-org/react";
+import { Tabs, Tab, Input, Link, Button, Card, CardBody, CardHeader } from "@nextui-org/react";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,15 +14,15 @@ export default function Home() {
   return (
     <>
       <main>
-        <div className='mt-14'>
+        <div className='mt-14 h-[150px]'>
           <Image
             className='mx-auto'
             src={'/images/logo.png'}
             alt="Picture of the author"
             sizes="100vw"
             style={{
-              width: '80%',
-              height: 'auto',
+              width: 'auto',
+              height: '100%',
             }}
             width={500}
             height={300}
@@ -39,20 +39,20 @@ export default function Home() {
                 onSelectionChange={setSelected}
               >
                 <Tab key="login" title="Login">
-                  <Login/>
+                  <Login />
                 </Tab>
                 <Tab key="sign-up" title="Sign up">
-                  <Register/>
+                  <Register />
                 </Tab>
               </Tabs>
             </CardBody>
-        </Card>
-      </div>
-      <div className='flex justify-center align-center'>
-            <div className='absolute bottom-4'>
-              <p className='text-center text-white text-sm font-extralight'>Mini-Project by Wutichai</p>
-            </div>
-      </div>
+          </Card>
+        </div>
+        <div className='flex justify-center align-center'>
+          <div className='absolute bottom-4'>
+            <p className='text-center text-white text-sm font-extralight'>Mini-Project by Wutichai</p>
+          </div>
+        </div>
       </main>
     </>
   )

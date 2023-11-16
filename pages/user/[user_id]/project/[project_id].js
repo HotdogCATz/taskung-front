@@ -7,7 +7,9 @@ function Projects() {
     return (
         <>
             <main>
-                <ProjectDetails/>
+                <div>
+                    <ProjectDetails />
+                </div>
             </main>
         </>
     )
