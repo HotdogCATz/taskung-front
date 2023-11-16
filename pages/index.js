@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import React from "react";
+import Head from 'next/head';
 
 import Register from '../components/auth/register'
 import Login from '../components/auth/login'
@@ -13,6 +14,13 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>Taskung</title>
+        <meta
+          name="Taskung"
+          key="desc"
+        />
+      </Head>
       <main>
         <div className='mt-14 h-[150px]'>
           <Image

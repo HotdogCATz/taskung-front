@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import React from "react";
 import Image from 'next/image'
-
+import Head from 'next/head';
 
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
@@ -36,6 +36,13 @@ function App() {
 
     return (
         <div>
+            <Head>
+                <title>Taskung - Home</title>
+                <meta
+                    name="Taskung"
+                    key="desc"
+                />
+            </Head>
             <div className='flex justify-around items-stretch bg-gray-800 h-[64px]'>
                 <div className="invisible self-center">
                     <Button as={Link} color="default" href={`/user/${userData.ID}`} variant="flat">
