@@ -3,7 +3,10 @@ import { useRouter } from 'next/router';
 
 import { Avatar } from "@nextui-org/react";
 import { Popover, PopoverTrigger, PopoverContent, Button, Listbox, ListboxItem } from "@nextui-org/react";
+import { CircularProgress } from "@nextui-org/react";
+
 import User from '../users/user';
+
 
 function SetUser({ userId, projectId, task }) {
 
@@ -15,7 +18,7 @@ function SetUser({ userId, projectId, task }) {
 
         if (userId && projectId) {
             // Fetch user data based on the user ID
-            fetch(`http://localhost:8080/user/${userId}/project/${projectId}`)
+            fetch(`https://still-eyrie-42544-e8f9820887ed.herokuapp.com/user/${userId}/project/${projectId}`)
                 .then(response => response.json())
                 .then(data => setProjectData(data.project_data))
                 .catch(error => console.error('Error:', error));
@@ -25,7 +28,12 @@ function SetUser({ userId, projectId, task }) {
     // console.log("taskId:", task.ID, "userTaskId:", task.user_task_id);
     // console.log("project data:", projectData);
     if (!projectData) {
-        return <div className='text-white text-sm font-light'>Loading...</div>;
+        return <div className='flex text-white text-sm font-light'>
+            <CircularProgress size="sm" aria-label="Loading..." />
+            <div className='ml-2 flex item-stretch'>
+                <p className='self-center'>Loading...</p>
+            </div>
+        </div>;
     }
 
     const handleSave = async (userTaskId) => {

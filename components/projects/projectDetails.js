@@ -5,7 +5,9 @@ import TaskDetails from '/components/tasks/taskDetails';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+import { CircularProgress } from "@nextui-org/react";
 
+import Image from 'next/image';
 // import EditProject from './editProject'
 import DeleteProject from './deleteProject';
 // import DeleteUserFromProject from './deleteUserFromProject';
@@ -37,7 +39,31 @@ function ProjectDetails() {
     // console.log("project data:", projectData);
     // console.log("user in project data:", projectData.Users);
     if (!projectData) {
-        return <div>Loading...</div>;
+        return (
+            <div>
+                <div className="self-center mt-36">
+                    <Image
+                        className='mx-auto'
+                        src={'/images/logo.png'}
+                        alt="Picture of the author"
+                        // sizes="100vw"
+                        // style={{
+                        //     width: '80%',
+                        //     height: 'auto',
+                        // }}
+                        width={250}
+                        height={30}
+                    />
+                    <div className='flex justify-center mt-2'>
+                        <CircularProgress size="md" aria-label="Loading..." />
+                    </div>
+
+                </div>
+                <div className='text-center mt-4'>
+                    Loading Project
+                </div>
+            </div>
+        );
     }
     return (
         <div>

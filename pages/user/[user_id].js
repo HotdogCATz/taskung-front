@@ -7,6 +7,7 @@ import Head from 'next/head';
 
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
+import { CircularProgress } from "@nextui-org/react";
 
 
 import AddProject from '/components/projects/addProject';
@@ -31,7 +32,32 @@ function App() {
     }, [router.query]);
 
     if (!userData) {
-        return <div>Loading...</div>;
+        return (
+            <div>
+                <div className="self-center mt-36">
+                    <Image
+                        className='mx-auto'
+                        src={'/images/logo.png'}
+                        alt="Picture of the author"
+                        // sizes="100vw"
+                        // style={{
+                        //     width: '80%',
+                        //     height: 'auto',
+                        // }}
+                        width={250}
+                        height={30}
+                    />
+                    <div className='flex justify-center mt-2'>
+                        <CircularProgress size="md" aria-label="Loading..." />
+                    </div>
+
+                </div>
+                <div className='text-center mt-4'>
+                    Loading User
+                </div>
+            </div>
+        )
+
     }
 
     return (
