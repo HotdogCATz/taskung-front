@@ -38,7 +38,7 @@ function AddTask({ userId, project }) {
         e.preventDefault();
         if (formData.task_name) {
             try {
-                let response = await fetch(`http://localhost:8080/user/${userId}/project/${project.ID}/task`, {
+                let response = await fetch(`https://still-eyrie-42544-e8f9820887ed.herokuapp.com/user/${userId}/project/${project.ID}/task`, {
                     method: 'POST',
                     body: JSON.stringify({
                         task_name: formData.task_name,

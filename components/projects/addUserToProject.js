@@ -22,7 +22,7 @@ function AddUserToProject({ userId, projectId }) {
         // console.log(userId, projectId, formData.inviteId);
         if (formData.inviteId) {
             try {
-                let response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}/user/${formData.inviteId}`, {
+                let response = await fetch(`https://still-eyrie-42544-e8f9820887ed.herokuapp.com/user/${userId}/project/${projectId}/user/${formData.inviteId}`, {
                     method: 'POST',
                     body: JSON.stringify({
                     }),

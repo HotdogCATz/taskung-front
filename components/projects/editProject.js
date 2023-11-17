@@ -19,7 +19,7 @@ function EditProject({ userId, projectId, project }) {
         e.preventDefault();
         if (formData.updateProjectName) {
             try {
-                const response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}`, {
+                const response = await fetch(`https://still-eyrie-42544-e8f9820887ed.herokuapp.com/user/${userId}/project/${projectId}`, {
                     method: 'PUT',
                     headers: {
                         Accept: "application/json', text/plain, */*",

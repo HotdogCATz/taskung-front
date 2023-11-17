@@ -24,7 +24,7 @@ function AddSubTask({ userId, projectId, taskId }) {
         e.preventDefault();
         if (formData.task_name) {
             try {
-                let response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}/task/${taskId}/subtask`, {
+                let response = await fetch(`https://still-eyrie-42544-e8f9820887ed.herokuapp.com/user/${userId}/project/${projectId}/task/${taskId}/subtask`, {
                     method: 'POST',
                     body: JSON.stringify(formData),
                     headers: {

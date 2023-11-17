@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import {Popover, PopoverTrigger, PopoverContent, Button, Listbox, ListboxItem} from "@nextui-org/react";
-function SetStatus({userId, projectId, task}) {
+import { Popover, PopoverTrigger, PopoverContent, Button, Listbox, ListboxItem } from "@nextui-org/react";
+function SetStatus({ userId, projectId, task }) {
     // console.log("task", task);
     const [updateStatus, setUpdateStatus] = useState(task.status);
     const [error, setError] = useState("");
@@ -16,26 +16,26 @@ function SetStatus({userId, projectId, task}) {
         // console.log("status", updateStatus);
         if (updateStatus) {
             try {
-            const response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}/task/${task.ID}`, {
-                method: 'PUT',
-                headers: {
-                    Accept: "application/json', text/plain, */*",
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    status: updateStatus,
-                    // Include any other fields you want to edit
-                }),
-            });
-            const data = await response.json();
+                const response = await fetch(`https://still-eyrie-42544-e8f9820887ed.herokuapp.com/user/${userId}/project/${projectId}/task/${task.ID}`, {
+                    method: 'PUT',
+                    headers: {
+                        Accept: "application/json', text/plain, */*",
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        status: updateStatus,
+                        // Include any other fields you want to edit
+                    }),
+                });
+                const data = await response.json();
 
-            // Check if the response is ok (status code 200-299)
-            if (!response.ok) {
-                let errorResponse = await response.json();
-                setError(errorResponse.error);
-                setMessage(""); // Clear any success message
-                return;
-            }
+                // Check if the response is ok (status code 200-299)
+                if (!response.ok) {
+                    let errorResponse = await response.json();
+                    setError(errorResponse.error);
+                    setMessage(""); // Clear any success message
+                    return;
+                }
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -43,7 +43,7 @@ function SetStatus({userId, projectId, task}) {
             setMessage("Update Task Successfully!");
             // Reload the page
             window.location.reload();
-        }else{
+        } else {
             return setError("Name are required!");
         }
     };
@@ -57,13 +57,13 @@ function SetStatus({userId, projectId, task}) {
                 <PopoverTrigger>
                     <Button
                         className={updateStatus === 'in-queue' ? '' :
-                        updateStatus === 'in-progress' ? 'bg-amber-400' :
-                        updateStatus === 'complete' ? 'bg-green-400' : ''}
-                        endContent={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
+                            updateStatus === 'in-progress' ? 'bg-amber-400' :
+                                updateStatus === 'complete' ? 'bg-green-400' : ''}
+                        endContent={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg>
-                    }>{updateStatus} </Button>
+                        }>{updateStatus} </Button>
                 </PopoverTrigger>
                 <PopoverContent>
                     <Listbox

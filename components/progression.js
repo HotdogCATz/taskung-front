@@ -9,7 +9,7 @@ export default function Progression({ projectId, userId }) {
     useEffect(() => {
         const fetchTasks = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}/task`);
+                const response = await fetch(`https://still-eyrie-42544-e8f9820887ed.herokuapp.com/user/${userId}/project/${projectId}/task`);
                 const data = await response.json();
                 setTasks(data.task_data);
             } catch (error) {

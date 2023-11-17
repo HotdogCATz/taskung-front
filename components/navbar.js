@@ -25,7 +25,7 @@ export default function App({ projectData }) {
 
         if (user_id) {
             // Fetch user data based on the user ID
-            fetch(`http://localhost:8080/user/${user_id}`)
+            fetch(`https://still-eyrie-42544-e8f9820887ed.herokuapp.com/user/${user_id}`)
                 .then(response => response.json())
                 .then(data => setUserData(data.user_data))
                 .catch(error => console.error('Error:', error));

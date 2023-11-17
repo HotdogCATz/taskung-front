@@ -10,7 +10,7 @@ function DeleteProject({ userId, projectId, project }) {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}`, {
+            const response = await fetch(`https://still-eyrie-42544-e8f9820887ed.herokuapp.com/user/${userId}/project/${projectId}`, {
                 method: 'DELETE',
             });
 

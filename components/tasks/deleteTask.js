@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import {Button} from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 
 
 function DeleteTask({ userId, projectId, taskId }) {
@@ -9,7 +9,7 @@ function DeleteTask({ userId, projectId, taskId }) {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}/task/${taskId}`, {
+            const response = await fetch(`https://still-eyrie-42544-e8f9820887ed.herokuapp.com/user/${userId}/project/${projectId}/task/${taskId}`, {
                 method: 'DELETE',
             });
 

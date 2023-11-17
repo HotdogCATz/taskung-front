@@ -21,7 +21,7 @@ function EditTask({ userId, projectId, task }) {
         e.preventDefault();
         if (formData.updateTaskName) {
             try {
-                const response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}/task/${task.ID}`, {
+                const response = await fetch(`https://still-eyrie-42544-e8f9820887ed.herokuapp.com/user/${userId}/project/${projectId}/task/${task.ID}`, {
                     method: 'PUT',
                     headers: {
                         Accept: "application/json', text/plain, */*",

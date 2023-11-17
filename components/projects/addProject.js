@@ -22,7 +22,7 @@ function AddProject({ userId }) {
 
         if (formData.project_name) {
             try {
-                let response = await fetch(`http://localhost:8080/user/${userId}/project`, {
+                let response = await fetch(`https://still-eyrie-42544-e8f9820887ed.herokuapp.com/user/${userId}/project`, {
                     method: 'POST',
                     body: JSON.stringify(formData),
                     headers: {

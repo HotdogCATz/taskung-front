@@ -14,7 +14,7 @@ function UserTask({ userId, projectId, task }) {
     useEffect(() => {
         if (userId && projectId) {
             // Fetch user data based on the user ID
-            fetch(`http://localhost:8080/user/${userId}/project/${projectId}`)
+            fetch(`https://still-eyrie-42544-e8f9820887ed.herokuapp.com/user/${userId}/project/${projectId}`)
                 .then(response => response.json())
                 .then(data => setProjectData(data.project_data))
                 .catch(error => console.error('Error:', error));

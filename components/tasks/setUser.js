@@ -37,7 +37,7 @@ function SetUser({ userId, projectId, task }) {
             // Convert userTaskId to an integer
             const taskIdAsInt = parseInt(userTaskId, 10);
             console.log(typeof taskIdAsInt);
-            const response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}/task/${task.ID}`, {
+            const response = await fetch(`https://still-eyrie-42544-e8f9820887ed.herokuapp.com/user/${userId}/project/${projectId}/task/${task.ID}`, {
                 method: 'PUT',
                 headers: {
                     Accept: "application/json', text/plain, */*",

@@ -31,7 +31,7 @@ function Register() {
                 const avatarUrl = avatarData[0].url;
                 console.log("url", avatarUrl);
 
-                let response = await fetch('http://localhost:8080/register', {
+                let response = await fetch('https://still-eyrie-42544-e8f9820887ed.herokuapp.com/register', {
                     method: 'POST',
                     body: JSON.stringify({
                         username: formData.username,
@@ -72,7 +72,7 @@ function Register() {
 
     const publicAcc = async () => {
         try {
-            let response = await fetch('http://localhost:8080/login', {
+            let response = await fetch('https://still-eyrie-42544-e8f9820887ed.herokuapp.com/login', {
                 method: 'POST',
                 body: JSON.stringify({
                     username: 'test_user',

@@ -13,7 +13,7 @@ function SubtaskDetails({ userId, projectId, taskId }) {
     useEffect(() => {
         const fetchSubtasks = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/user/${userId}/project/${projectId}/task/${taskId}/subtask`);
+                const response = await fetch(`https://still-eyrie-42544-e8f9820887ed.herokuapp.com/user/${userId}/project/${projectId}/task/${taskId}/subtask`);
                 const data = await response.json();
                 setSubtasks(data.sub_task_data);
             } catch (error) {
