@@ -110,7 +110,7 @@ function Register() {
 
     return (
         <div>
-            <h2 className='text-center text-white text-lg'>Sing up</h2>
+            <h2 className='text-center text-white text-lg'>Sign up</h2>
             <form onSubmit={handleSubmit}>
                 <div>
                     <input
